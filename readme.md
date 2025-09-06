@@ -26,3 +26,6 @@ PagesSober是由原[Pages-Markdown-reRender](//github.com/kdxhub/Pages-md-reRend
 ### 创建自定义页面
 有时您可能需要使用自定义的页面内容但又想要保证全站风格、设计统一，则可考虑使用[`example.html`](/example.html)提供的模板。<br>
 该模板遵循SoberJS框架，也会自动使用PMD配置，但其资源文件的引入可能需要修改父路径。
+
+### 更换Sober配色
+将新Sober配色CSS替换[`/pmd/sober-theme.css`](/pmd//sober-theme.css)即可。
