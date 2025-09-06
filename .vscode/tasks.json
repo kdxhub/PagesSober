@@ -52,10 +52,10 @@
       }
     },
     {
-      "label": "ENV | Run bundle install",
+      "label": "ENV | Clean Jekyll Temp File (Linux)",
       "promptOnClose": true,
       "type": "shell",
-      "command": "bundle install",
+      "command": "rm -rd ./_site ./.jekyll-cache",
       "group": {
         "kind": "test",
         "isDefault": false
