@@ -1,325 +1,12 @@
 // 将Github Pages自动生成的Markdown渲染页面进行自动重绘
 // Powered by SoberJS
 
-
-const /*插件版本（建议不要修改）*/PluginVer=["2.1.0",20];
-
-const pmdStorage={Cookies:{set:function(e,t,o,n){const s=`${encodeURIComponent(e)}=${encodeURIComponent(t)}`;if(o){const e=new Date;e.setTime(e.getTime()+1e3*o),document.cookie=`${s}; expires=${e.toUTCString()}; path=${n}`}else document.cookie=`${s}; path=${n}`},get:function(e){const t=document.cookie.split("; ");for(const o of t){const[t,n]=o.split("=",2);if(decodeURIComponent(t)===e)return decodeURIComponent(n)}return null},remove:function(e){this.set(e,"",{expires:-1})},getAll:function(){const e=document.cookie.split("; "),t={};for(const o of e){const[e,n]=o.split("=",2);t[decodeURIComponent(e)]=decodeURIComponent(n)}return t},reset_dangerous:function(){const e=this.getAll();for(const t in e)this.remove(t)}},Local:{set:function(e,t){localStorage.setItem(e,JSON.stringify(t))},get:function(e){const t=localStorage.getItem(e);try{return JSON.parse(t)}catch(e){return t}},remove:function(e){localStorage.removeItem(e)},getAll:function(){const e={};for(let t=0;t<localStorage.length;t++){const o=localStorage.key(t);e[o]=this.get(o)}return e},reset_dangerous:function(){localStorage.clear()}},Session:{set:function(e,t){sessionStorage.setItem(e,JSON.stringify(t))},get:function(e){const t=sessionStorage.getItem(e);try{return JSON.parse(t)}catch(e){return t}},remove:function(e){sessionStorage.removeItem(e)},getAll:function(){const e={};for(let t=0;t<sessionStorage.length;t++){const o=sessionStorage.key(t);e[o]=this.get(o)}return e},reset_dangerous:function(){sessionStorage.clear()}}};
-document.body.innerHTML = `
-<!-- Pages Markdown Re-Render -->
-<!-- 页面重渲染插入代码开始 -->
-<style id="_pmd-style-dynamic"></style>
-<style id="_pmd-style-animation">
-  @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-    }
-  .fadeIn {
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
-    animation-name: fadeIn;
-  }
-  @keyframes fadeOut {
-    from {opacity: 1;}
-    to {opacity: 0;}
-    }
-  .fadeOut {
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
-    animation-name: fadeOut;
-  }
-</style><style id="_pmd-style-ui">
-  @media print {
-    #_pmd-appbarRoot {display: none !important;}
-    #_pmd-LeftSiderbar {display: none !important;}
-    .site-footer {display: none !important;}
-    #_pmd-originalContent {height: min-content !important;}
-    #_pmd-pageRoot {height: min-content !important;}
-    #_pmd-mainContent {height: min-content !important;}
-    body {
-      height: min-content !important;
-      background-image: none !important;
-    }
-    html {height: min-content !important;}
-  }
-  @page {
-    @top-right {
-      content: "页 " counter(pageNumber);
-    }
-  }
-  body {
-    background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -o-background-size: cover;
-    background-position: center 0;
-    background-attachment: fixed;
-    background-image: url(${conf.img.background.src});
-  }
-  html::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-  #_pmd-pageRoot {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  #_pmd-appbarRoot {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  #_pmd-mainContent {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-  }
-  #_pmd-LeftSiderbar {
-    display: flex;
-    flex-direction: column;
-  }
-  #_pmd-originalContent {
-    display: flex;
-    flex-direction: column;
-  }
-  .sidebar_img {
-    width: 100%;
-    height: 100%;
-  }
-  .sidebar_head {
-    display: flex;
-    flex-direction: column;
-    width:94%;
-    padding: 3px 3px 3px 3px;
-    margin: 3% 3% 0% 3%;
-  }
-  .sidebar_head > div[slot=headline] {
-    margin: 0 16px 0;
-  }
-  .sidebar_btn {
-    width:100%;
-    margin:1% 0 1% 0;
-  }
-  .main-content {
-    max-width: 100%;
-    min-width: 100%
-  }
-  .page-header {
-    background-color: rgba(255, 255, 255, 0);
-    background-image: linear-gradient(120deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
-  }
-  .site-footer {
-    padding: 0 5% 0.1rem 5%;
-    text-align: right;
-    width: 100%;
-    word-wrap: break-word;
-    color: #819198;
-    border-top: 0px;
-  }
-  .site-footer>p {
-    padding: 0 20px 0 20px;
-  }
-  ul#index_links {
-    padding: 0 0 0 0;
-    margin: 0 0 0 1.2em;
-    wdith:100%;
-    list-style-type: none;
-  }
-  ul.index {
-    padding: 0 0 0 .8em;
-    list-style-type: none;
-  }
-  li.index {
-    padding: 0 0 0 0;
-  }
-  ul.index li.index::before {
-    content: "";
-    position: absolute;
-    transform: translateY(.6em) translateX(-.75em);
-    width: .2em;
-    height: .2em;
-    border-radius: 50%;
-    border: .075em solid var(--s-color-primary, black);
-  }
-  .headerProcessed {
-    text-decoration: none;
-    cursor: alias;
-  }
-  .headerProcessed:hover {
-    text-decoration: underline;
-  }
-  .headerLinkBtn {
-    height: 1rem;
-    width: 1rem;
-    transition: opacity 0.15s ease;
-    opacity: 0;
-  }
-  .headerProcessed:hover > .headerLinkBtn {
-    opacity: 1;
-  }
-  a {
-    text-decoration: underline dotted;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  a s-icon {
-    width: 1em;
-    height: 1em;
-    transform: translateY(-0.05em) translateX(-0.05em);
-  }
-  img:not(.ui-img) {
-    max-width: 75%;
-    max-height: 50vh;
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    object-fit: contain;
-    box-sizing: content-box;
-    display: block;
-  }
-</style><style id="_pmd-style-lightmode">
-  #_pmd-pageRoot {
-    background: rgba(250,253,252,${conf.img.background.alpha[0]});
-    backdrop-filter: blur(${conf.img.background.blur}px);
-  }
-</style><style id="_pmd-style-darkmode">
-  #_pmd-pageRoot[dark] {
-    background: rgba(5,2,3,${conf.img.background.alpha[1]});
-    backdrop-filter: blur(${conf.img.background.blur}px);
-  }
-  #_pmd-pageRoot[dark] * {
-    color-scheme:dark;
-  }
-  #_pmd-pageRoot[dark] .highlight {
-    background-color: rgb(39 43 42);
-  }
-  #_pmd-pageRoot[dark] .highlight .kd {
-    color: #ffffff;
-  }
-  #_pmd-pageRoot[dark] .highlight .kv {
-    color: #ffffff;
-  }
-  #_pmd-pageRoot[dark] .highlight .k {
-    color: #ffffff;
-  }
-  #_pmd-pageRoot[dark] .highlight .o {
-    color: #ffffff;
-  }
-  #_pmd-pageRoot[dark] .highlight .nt {
-    color: #0080ff;
-  }
-  #_pmd-pageRoot[dark] .page-header {
-    --header-font-color: #f8f8f8;
-  }
-</style><style id="_pmd-style-predefinite">
-  .selectable {
-    user-select: text;
-    -moz-user-select: text;
-    -webkit-user-select: text;
-  }
-  .unselectable {
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-  }
-  blockquote.pmd-blockinfo>:nth-child(2) {
-    margin-top: 0;
-  }
-  p.pmd-blockinfo {
-    margin-bottom: 0.4rem;
-  }
-</style><style id="_pmd-style-custom">${conf.info.style}</style>
-<s-page class="unselectable page_root" id="_pmd-pageRoot" theme="${pmdStorage.Cookies.get("pmd-prefer_color_theme")}">
-  <s-appbar id="_pmd-appbarRoot">
-    <s-tooltip slot="navigation">
-      <s-icon-button id="_pmd-menuBtn" type="filled-tonal" slot="trigger" onclick="document.querySelector('s-drawer').toggle()">
-        <s-icon name="menu"></s-icon>
-      </s-icon-button>
-      切换侧栏
-    </s-tooltip>
-    <div id="_pmd-pageTitle" style="opacity: 0;" slot="headline"> Title </div>
-    <s-tooltip slot="action">
-      <s-icon-button id="_pmd-toTopBtn" class="fadeOut" style="opacity: 0;" type="outlined" slot="trigger">
-        <s-icon name="chevron_up"></s-icon>
-      </s-icon-button>
-      回到顶部
-    </s-tooltip>
-    <s-tooltip slot="action">
-      <s-icon-button id="_pmd-githubBtn" style="display: none;" type="none" slot="trigger">
-        <s-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"></path></svg></s-icon>
-      </s-icon-button>
-      在 Github.com 上查看
-    </s-tooltip>
-    </s-appbar>
-  <s-drawer id="_pmd-mainContent">
-    <div id="_pmd-LeftSiderbar" slot="start"><s-scroll-view class="unselectable" style="height: 100%; padding-bottom: 1rem;">
-      <s-card id="_pmd-slot_1" type="" class="sidebar_head">
-        <div slot="image"><img title="${conf.sidebar.solt_1.title}" alt="${conf.sidebar.solt_1.alt}" class="ui-img sidebar_img" pmduiimg="true" src="${conf.sidebar.solt_1.src}"></div>
-        <div slot="headline"><span>${conf.sidebar.solt_1.alt}</span></div>
-      </s-card>
-      <s-card id="_pmd-slot_2" type="" class="sidebar_head">${conf.sidebar.solt_2.innerHTML}</s-card>
-      <s-card id="_pmd-slot_3" type="" class="sidebar_head">
-        <s-fold folded="true" id="_pmd-user_setting_parent">
-          <s-chip slot="trigger" clickable="true" class="sidebar_btn">
-            <s-icon slot="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"></path></svg></s-icon>
-            阅读设置
-          </s-chip>
-          <div id="_pmd-user_settings">
-            <s-navigation id="_pmd-color_theme_prefer" style="background: none;">
-              <s-navigation-item id="_pmd-color_theme_prefer_a" value="auto" selected="true">
-                <s-icon slot="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M312-320h64l32-92h146l32 92h62L512-680h-64L312-320Zm114-144 52-150h4l52 150H426Zm54 436L346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Zm0-112 100-100h140v-140l100-100-100-100v-140H580L480-820 380-720H240v140L140-480l100 100v140h140l100 100Zm0-340Z"></path></svg></s-icon>
-                <div slot="text">自动</div>
-              </s-navigation-item>
-              <s-navigation-item id="_pmd-color_theme_prefer_l" value="light">
-                <s-icon name="light_mode" slot="icon"></s-icon>
-                <div slot="text">白昼</div>
-              </s-navigation-item>
-              <s-navigation-item id="_pmd-color_theme_prefer_d" value="dark">
-                <s-icon name="dark_mode" slot="icon"></s-icon>
-                <div slot="text">极夜</div>
-              </s-navigation-item>
-            </s-navigation>
-          </div>
-        </s-fold>
-        <s-fold folded="true" id="_pmd-index_links_parent" style="display:none">
-          <s-chip slot="trigger" clickable="true" class="sidebar_btn">
-            <s-icon slot="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M240-80q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h440v640H240q-17 0-28.5 11.5T200-200q0 17 11.5 28.5T240-160h520v-640h80v720H240Zm120-240h240v-480H360v480Zm-80 0v-480h-40q-17 0-28.5 11.5T200-760v447q10-3 19.5-5t20.5-2h40Zm-80-480v487-487Z"></path></svg></s-icon>
-            目录
-          </s-chip>
-          <div id="_pmd-index_links"><ul></ul></div>
-        </s-fold>
-      </s-card>
-      <s-card id="_pmd-slot_4" type="" class="sidebar_head">
-        <div id="_pmd-slot_4_saying"><center>${conf.info.saying}</center></div>
-        <div id="_pmd-slot_4_time"><center><small>Since 2022-07-19</small></center></div>
-        <div id="_pmd-slot_4_license"><center><small>以<a href="${conf.info.licen.link}">${conf.info.licen.what}</a>协议提供内容</small></center></div>
-      </s-card>
-    </div></s-scroll-view>
-    <s-scroll-view id="_pmd-originalContent" class="selectable">
-      <!-- 页面重渲染插入代码暂停 -->
-      ${document.body.innerHTML}
-      <!-- 页面重渲染插入代码继续 -->
-      <footer class="site-footer unselectable"><s-divider></s-divider><p><small>${conf.hyper_markdown.footer}<br>Powered by <a data-arrow-bypass="true" href="https://github.com/kdxhub/Pages-md-reRender" target="_blank">Pages Markdown reRender</a>.</small></p></footer>
-    </s-scroll-view>
-  </s-drawer>
-</s-page>
-<!-- 页面重渲染插入代码结束 -->
-`;
-
+const PluginVer = ["3.0.0", 21];
+const pmdStorage = { Cookies: { set: function (e, t, o, n) { const s = `${encodeURIComponent(e)}=${encodeURIComponent(t)}`; if (o) { const e = new Date; e.setTime(e.getTime() + 1e3 * o), document.cookie = `${s}; expires=${e.toUTCString()}; path=${n}` } else document.cookie = `${s}; path=${n}` }, get: function (e) { const t = document.cookie.split("; "); for (const o of t) { const [t, n] = o.split("=", 2); if (decodeURIComponent(t) === e) return decodeURIComponent(n) } return null }, remove: function (e) { this.set(e, "", { expires: -1 }) }, getAll: function () { const e = document.cookie.split("; "), t = {}; for (const o of e) { const [e, n] = o.split("=", 2); t[decodeURIComponent(e)] = decodeURIComponent(n) } return t }, reset_dangerous: function () { const e = this.getAll(); for (const t in e) this.remove(t) } }, Local: { set: function (e, t) { localStorage.setItem(e, JSON.stringify(t)) }, get: function (e) { const t = localStorage.getItem(e); try { return JSON.parse(t) } catch (e) { return t } }, remove: function (e) { localStorage.removeItem(e) }, getAll: function () { const e = {}; for (let t = 0; t < localStorage.length; t++) { const o = localStorage.key(t); e[o] = this.get(o) } return e }, reset_dangerous: function () { localStorage.clear() } }, Session: { set: function (e, t) { sessionStorage.setItem(e, JSON.stringify(t)) }, get: function (e) { const t = sessionStorage.getItem(e); try { return JSON.parse(t) } catch (e) { return t } }, remove: function (e) { sessionStorage.removeItem(e) }, getAll: function () { const e = {}; for (let t = 0; t < sessionStorage.length; t++) { const o = sessionStorage.key(t); e[o] = this.get(o) } return e }, reset_dangerous: function () { sessionStorage.clear() } } };
+document.body.innerHTML += `<style id=_pmd-style-dynamic>#_pmd-pageRoot{background:rgba(250,253,252,${conf.img.background.alpha[0]});backdrop-filter:blur(${conf.img.background.blur}px)}#_pmd-pageRoot[dark]{background:rgba(5,2,3,${conf.img.background.alpha[1]});backdrop-filter:blur(${conf.img.background.blur}px)}</style><style id=_pmd-style-custom>${conf.info.style}</style>`;
 //pmd元素常量组
 const pmdElements = {
   pageRoot: document.getElementById("_pmd-pageRoot"),
-  style: {
-    _: document.getElementById("_pmd-style-dynamic"),
-    animation: document.getElementById("_pmd-style-animation"),
-    ui: document.getElementById("_pmd-style-ui"),
-    darkmode: document.getElementById("_pmd-style-darkmode"),
-    predefinite: document.getElementById("_pmd-style-predefinite"),
-    custom: document.getElementById("_pmd-style-custom"),
-  },
   appbar: {
     _: {
       GithubLink: "",
@@ -374,7 +61,6 @@ const pmdElements = {
         root: document.getElementsByClassName("page-header")[0],
         main: document.getElementsByClassName("project-name")[0],
         sub: document.getElementsByClassName("project-tagline")[0],
-        view_on_github: document.querySelector("#_pmd-originalContent > header > a.btn"),
       },
       main: {
         root: document.getElementById("content"),
@@ -386,6 +72,7 @@ const pmdElements = {
         list: document.querySelectorAll("ul,ol"),
         table: document.querySelectorAll("table"),
       },
+      jekyll_conf: document.getElementById("jekyll-meta"),
     },
   },
   pageConfig: document.getElementById("mdRender_config"),
@@ -412,12 +99,12 @@ function msg(Message, ConfirmBtnText, isWarning, duration, onclick, align, icon)
     type: "basic",
     action: {},
   };
-  if (ConfirmBtnText) {infoJSON.action.text = ConfirmBtnText.toString();};
-  if (isWarning) {infoJSON.type = "error";};
-  if (duration) {infoJSON.duration = parseInt(duration.toString());};
-  if (onclick) {infoJSON.action.click = onclick;};
-  if (align) {infoJSON.align = ["auto", "top", "bottom"][ align.toString().match(/\d+/) % 3 ];};
-  if (icon) {infoJSON.icon = icon;};
+  if (ConfirmBtnText) { infoJSON.action.text = ConfirmBtnText.toString(); };
+  if (isWarning) { infoJSON.type = "error"; };
+  if (duration) { infoJSON.duration = parseInt(duration.toString()); };
+  if (onclick) { infoJSON.action.click = onclick; };
+  if (align) { infoJSON.align = ["auto", "top", "bottom"][align.toString().match(/\d+/) % 3]; };
+  if (icon) { infoJSON.icon = icon; };
   customElements.get("s-snackbar").builder(infoJSON);
   return infoJSON;
 };
@@ -438,7 +125,7 @@ if (!!pmdStorage.Cookies.get("pmd-prefer_color_theme")) {
   };
 };
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-  if (pmdElements.content.lsidebar.slot3.user_setting.color.root.value != "auto") {return;};
+  if (pmdElements.content.lsidebar.slot3.user_setting.color.root.value != "auto") { return; };
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     ChangeColorTheme("dark");
   } else {
@@ -495,11 +182,10 @@ document.querySelectorAll("img").forEach((imgElement) => {
 
 //移动View on Github按钮
 if (conf.info.view_on_github && !!pmdElements.content.origin.header.view_on_github) {
-  pmdElements.appbar._.GithubLink = pmdElements.content.origin.header.view_on_github.href;
-  pmdElements.appbar.Github.addEventListener("click", () => {openURL(pmdElements.appbar._.GithubLink, false);});
-  pmdElements.appbar.Github.style = "";
+  pmdElements.appbar._.GithubLink = pmdElements.content.origin.jekyll_conf.dataset.githubRepo;
+  pmdElements.appbar.Github.addEventListener("click", () => { openURL(pmdElements.appbar._.GithubLink, false); });
+  if (pmdElements.appbar._.GithubLink == "") { pmdElements.appbar.Github.remove(); } else { pmdElements.appbar.Github.style = ""; };
 };
-if (!!pmdElements.content.origin.header.view_on_github) {pmdElements.content.origin.header.view_on_github.remove();};
 
 //title动画和回顶按钮显隐
 pmdElements.appbar.toTopBtn.addEventListener("animationend", (event) => { if (pmdElements.appbar.toTopBtn.className == "fadeOut") { pmdElements.appbar.toTopBtn.style = "display: none;"; }; });
@@ -538,7 +224,7 @@ function scrollToTop() {
   pmdElements.content.origin._.toTop_intervalID = setInterval(() => {
     pmdElements.content.origin.root.scrollBy(0, pmdElements.content.origin._.toTop_interval_speed);
     if (pmdElements.content.origin.root.scrollTop <= 0) {
-      clearInterval (pmdElements.content.origin._.toTop_intervalID);
+      clearInterval(pmdElements.content.origin._.toTop_intervalID);
       pmdElements.content.origin._.toTop_intervalID = -1;
     };
   }, 1);
@@ -588,7 +274,7 @@ document.querySelectorAll('#_pmd-originalContent h1, #_pmd-originalContent h2, #
   hn_last_level = hn_level;
   if (conf.hyper_markdown.header_link && !HeaderElement.className/*不处理文章开头的标题*/.includes("project-name")) {
     HeaderElement.addEventListener("click", () => {
-      openURL("#"+HeaderElement.id, true);
+      openURL("#" + HeaderElement.id, true);
     });
     HeaderElement.classList.add("headerProcessed");
     HeaderElement.innerHTML += `<s-icon class="headerLinkBtn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M680-160v-120H560v-80h120v-120h80v120h120v80H760v120h-80ZM440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm560-40h-80q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480Z"></path></svg></s-icon>`;
@@ -634,57 +320,58 @@ function selectAllTextInElement(element) {
 };
 function copyBtnDone(copyBtn, text) {
   /*copyBtn点击后动画*/
-  copyBtn.setAttribute("type","filled-tonal");
-  copyBtn.innerHTML=`<s-icon name="done" slot="start"></s-icon>${conf.code.done}`;
-  setTimeout(()=>{
-    copyBtn.setAttribute("type","elevated");
-    copyBtn.innerHTML=`<s-icon slot="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"></path></svg></s-icon>${conf.code.tip}`;
-    if (text==window.getSelection().toString()) {
+  copyBtn.setAttribute("type", "filled-tonal");
+  copyBtn.innerHTML = `<s-icon name="done" slot="start"></s-icon>${conf.code.done}`;
+  setTimeout(() => {
+    copyBtn.setAttribute("type", "elevated");
+    copyBtn.innerHTML = `<s-icon slot="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"></path></svg></s-icon>${conf.code.tip}`;
+    if (text == window.getSelection().toString()) {
       window.getSelection().removeAllRanges();
     };
-  },5000);
+  }, 5000);
 };
 if (conf.code.enabled) { /*添加Copy按钮并添加绑定*/
-document.querySelectorAll('code').forEach((codeElement) => {
-  if (/*不是代码块就跳过*/
-    (codeElement./*检查语法高亮是否存在*/querySelectorAll('span').length == 0)
-    && !(codeElement.parentNode && codeElement.parentNode.nodeName === 'PRE')
-  ) {return;};
-  codeElement.parentNode.parentNode.parentNode.style.margin="5px 0 5px 0";
-  codeElement.classList.add("processed");/*添加标志位*/
-  /*为CopyBtn添加属性*/
-  let copyCodeBtn = document.createElement('s-chip');
-  copyCodeBtn.setAttribute("type","elevated");
-  copyCodeBtn.setAttribute("class","font-default");
-  copyCodeBtn.setAttribute("clickable","true");
-  if /*检查Cilpboard API状态*/ (!navigator.clipboard) {copyCodeBtn.setAttribute("clickable","false");};
-  copyCodeBtn.innerHTML=`<s-icon slot="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"></path></svg></s-icon>${conf.code.tip}`;
-  /*添加事件绑定*/
-  copyCodeBtn.addEventListener('click',() => {
-    window.getSelection().removeAllRanges();
-    /*先选中代码块内全部代码，再利用Cilpboard API写入已经选中的内容，从而实现保留格式的代码复制*/
-    selectAllTextInElement(copyCodeBtn.parentElement.querySelectorAll("code")[0]);
-    navigator.clipboard.writeText(window.getSelection().toString()).then(
-      function () {/* clipboard successfully set */
-        copyBtnDone(copyCodeBtn,window.getSelection().toString());
-      },function () {/* clipboard write failed */
-        msg("没有授予剪贴板权限…", "好", true);
-      },
-    );
+  document.querySelectorAll('code').forEach((codeElement) => {
+    if (/*不是代码块就跳过*/
+      (codeElement./*检查语法高亮是否存在*/querySelectorAll('span').length == 0)
+      && !(codeElement.parentNode && codeElement.parentNode.nodeName === 'PRE')
+    ) { return; };
+    codeElement.parentNode.parentNode.parentNode.style.margin = "5px 0 5px 0";
+    codeElement.classList.add("processed");/*添加标志位*/
+    /*为CopyBtn添加属性*/
+    let copyCodeBtn = document.createElement('s-chip');
+    copyCodeBtn.setAttribute("type", "elevated");
+    copyCodeBtn.setAttribute("class", "font-default");
+    copyCodeBtn.setAttribute("clickable", "true");
+    if /*检查Cilpboard API状态*/ (!navigator.clipboard) { copyCodeBtn.setAttribute("clickable", "false"); };
+    copyCodeBtn.innerHTML = `<s-icon slot="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"></path></svg></s-icon>${conf.code.tip}`;
+    /*添加事件绑定*/
+    copyCodeBtn.addEventListener('click', () => {
+      window.getSelection().removeAllRanges();
+      /*先选中代码块内全部代码，再利用Cilpboard API写入已经选中的内容，从而实现保留格式的代码复制*/
+      selectAllTextInElement(copyCodeBtn.parentElement.querySelectorAll("code")[0]);
+      navigator.clipboard.writeText(window.getSelection().toString()).then(
+        function () {/* clipboard successfully set */
+          copyBtnDone(copyCodeBtn, window.getSelection().toString());
+        }, function () {/* clipboard write failed */
+          msg("没有授予剪贴板权限…", "好", true);
+        },
+      );
+    });
+    /*将准备完成的CopyBtn插入到代码块中*/
+    codeElement.parentNode.insertBefore(copyCodeBtn, codeElement.nextSibling);
   });
-  /*将准备完成的CopyBtn插入到代码块中*/
-  codeElement.parentNode.insertBefore(copyCodeBtn, codeElement.nextSibling);
-});};
+};
 
 //blockquote高级语法
 if (conf.hyper_markdown.quotepro[0]) {
   let quoteproReg = /\[(?:@|！|!|i|x|#(?:[0-9a-f]{3}){1,2}(\$[\s\S]*)*)\]/i;
   let iconMap = {
-    i: { color: conf.hyper_markdown.quotepro[1], label: 'Info', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></svg>',},
-    '!': { color: conf.hyper_markdown.quotepro[2], label: 'Notice', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></svg>',},
-    '！': { color: conf.hyper_markdown.quotepro[2], label: 'Notice', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></svg>',},
-    x: { color: conf.hyper_markdown.quotepro[3], label: 'Warn', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z"></path></svg>',},
-    '@': { color: conf.hyper_markdown.quotepro[4], label: 'Tip', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q65 0 123 19t107 53l-58 59q-38-24-81-37.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-18-2-36t-6-35l65-65q11 32 17 66t6 70q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-56-216L254-466l56-56 114 114 400-401 56 56-456 457Z"></path></svg>',},
+    i: { color: conf.hyper_markdown.quotepro[1], label: 'Info', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></svg>', },
+    '!': { color: conf.hyper_markdown.quotepro[2], label: 'Notice', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></svg>', },
+    '！': { color: conf.hyper_markdown.quotepro[2], label: 'Notice', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></svg>', },
+    x: { color: conf.hyper_markdown.quotepro[3], label: 'Warn', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z"></path></svg>', },
+    '@': { color: conf.hyper_markdown.quotepro[4], label: 'Tip', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q65 0 123 19t107 53l-58 59q-38-24-81-37.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-18-2-36t-6-35l65-65q11 32 17 66t6 70q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-56-216L254-466l56-56 114 114 400-401 56 56-456 457Z"></path></svg>', },
   };
   document.querySelectorAll('blockquote').forEach((QuoteElement) => {
     if (quoteproReg.test(QuoteElement.innerHTML)) {
@@ -731,8 +418,8 @@ function RefreshCountup(countupY, countupM, countupD) {
   pmdElements.content.lsidebar.slot4.time.innerHTML = `<center><small>本站已建立${countupD_}天${countupH}小时${countupM_}分钟${countupS}秒</small></center>`;
 };
 if (conf.info.time[0] && !conf.sidebar.replacement) {
-  pmdElements.content.lsidebar.slot4._.timeCountInterval = setInterval(() => {RefreshCountup(conf.info.time[1],conf.info.time[2],conf.info.time[3])}, 1000);
-} else {pmdElements.content.lsidebar.slot4.time.remove();};
+  pmdElements.content.lsidebar.slot4._.timeCountInterval = setInterval(() => { RefreshCountup(conf.info.time[1], conf.info.time[2], conf.info.time[3]) }, 1000);
+} else { pmdElements.content.lsidebar.slot4.time.remove(); };
 
 //向复制内容末尾添加版权声明
 if (!!conf.copy.endnote) {
@@ -741,7 +428,7 @@ if (!!conf.copy.endnote) {
     .replace(/%LINK%/, window.location)
     .replace(/%TITLE%/, pmdElements.appbar.title.innerHTML)
     .replace(/%ETITLE%/, pmdElements.content.origin.header.main.innerHTML);
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('copy', async (event) => {
       try {
         await navigator.clipboard.writeText(window.getSelection().toString() + endnote);
@@ -751,10 +438,10 @@ if (!!conf.copy.endnote) {
         console.error(err);
       }
     });
-  });  
+  });
 };
 
 //页面初始化
 updataAppbar();
 console.log('%cPages Markdown Re-Render v' + PluginVer[0] + '%c[' + PluginVer[1] + '%c]\nCopyright (C) 2024 kdxiaoyi. All right reserved.', 'color:#90BBB1;', 'color:#90BBB1;', 'color:#90BBB1;');
-if (!!document.getElementById(/*移除old_menu*/"old_menu")) {document.getElementById("old_menu").remove();};
+if (!!document.getElementById(/*移除old_menu*/"old_menu")) { document.getElementById("old_menu").remove(); };
