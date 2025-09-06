@@ -178,7 +178,7 @@ document.querySelectorAll("img").forEach((imgElement) => {
   };
 });
 
-//移动View on Github按钮
+//Github链接处理
 if (conf.info.view_on_github && !!pmdElements.content.header.view_on_github) {
   pmdElements.appbar._.GithubLink = pmdElements.content.jekyll_conf.dataset.githubRepo;
   pmdElements.appbar.Github.addEventListener("click", () => { openURL(pmdElements.appbar._.GithubLink, false); });
@@ -228,9 +228,6 @@ function scrollToTop() {
   }, 1);
 };
 pmdElements.appbar.toTopBtn.addEventListener("click", scrollToTop);
-
-//设置页面标题
-pmdElements.appbar.title.innerHTML = pmdElements.content.header.main.innerHTML;
 
 //检查页面设置元素并应用
 if (!!pmdElements.pageConfig) {

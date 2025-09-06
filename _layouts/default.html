@@ -9,8 +9,7 @@
   {% include head-custom-google-analytics.html %}
 </head>
 <body>
-  <s-page class="unselectable page_root" id="_pmd-pageRoot" theme="${pmdStorage.Cookies.get("
-    pmd-prefer_color_theme")}">
+  <s-page class="unselectable page_root" id="_pmd-pageRoot">
     <s-appbar id="_pmd-appbarRoot">
       <s-tooltip slot="navigation">
         <s-icon-button id="_pmd-menuBtn" type="filled-tonal" slot="trigger"
@@ -19,7 +18,7 @@
         </s-icon-button>
         切换侧栏
       </s-tooltip>
-      <div id="_pmd-pageTitle" style="opacity: 0;" slot="headline"> Title </div>
+      <div id="_pmd-pageTitle" style="opacity: 0;" slot="headline"> {{ page.title | default: site.title | default: site.github.repository_name }} </div>
       <s-tooltip slot="action">
         <s-icon-button id="_pmd-toTopBtn" class="fadeOut" style="opacity: 0;" type="outlined" slot="trigger">
           <s-icon name="chevron_up"></s-icon>
