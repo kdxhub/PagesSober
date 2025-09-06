@@ -52,6 +52,16 @@
       }
     },
     {
+      "label": "ENV | Run bundle install",
+      "promptOnClose": true,
+      "type": "shell",
+      "command": "bundle install",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      }
+    },
+    {
       "label": "ENV | Uninstall Jekyll Env (Linux)",
       "promptOnClose": true,
       "type": "shell",

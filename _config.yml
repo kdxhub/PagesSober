@@ -1,5 +1,32 @@
-title: Cayman theme
-description: Cayman is a clean, responsive theme for GitHub Pages.
-show_downloads: true
-google_analytics:
-theme: jekyll-theme-cayman
+what-is-this: Jekyll的设置项，影响一些行为
+# 页面框架设置见pmd-conf.js
+
+# 网站的标题
+title: PagesSober
+# 网站描述
+description: >-
+  基于SoberJS的Github Pages主题
+# 你的favicon（出现在浏览器tab上）图片URL，建议使用较小(64px × 64px)的图片
+favicon: /favicon.ico
+
+# 包含的文件
+include:
+  - file_example
+
+# 不包含的文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - CNAME
+
+# 以下为高级设置，非特殊请勿修改
+# ADVANCED CONFIG BELOW. NO MODIFY WITHOUT SPECIAL CASE.
+# theme: pages-sober
+# plugins:
+#   - jekyll-sitemap
+#   - jekyll-feed
+#   - jekyll-paginate
+theme: minima
+plugins:
+  - jekyll-feed
+livereload: true
