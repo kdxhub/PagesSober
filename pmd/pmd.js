@@ -17,63 +17,61 @@ const pmdElements = {
     toTopBtn: document.getElementById("_pmd-toTopBtn"),
     Github: document.getElementById("_pmd-githubBtn"),
   },
-  content: {
-    root: document.getElementById("_pmd-mainContent"),
-    lsidebar: {
-      root: document.getElementById("_pmd-LeftSiderbar"),
-      slot1: document.getElementById("_pmd-slot_1"),
-      slot2: document.getElementById("_pmd-slot_2"),
-      slot3: {
-        root: document.getElementById("_pmd-slot_3"),
-        index_links: {
-          root: document.getElementById("_pmd-index_links_parent"),
-          sub: document.getElementById("_pmd-index_links"),
-        },
-        user_setting: {
-          root: document.getElementById("_pmd-user_setting_parent"),
-          sub: document.getElementById("_pmd-user_settings"),
-          color: {
-            root: document.getElementById("_pmd-color_theme_prefer"),
-            auto: document.getElementById("_pmd-color_theme_prefer_a"),
-            light: document.getElementById("_pmd-color_theme_prefer_l"),
-            dark: document.getElementById("_pmd-color_theme_prefer_d"),
-          },
-        },
-        travellings: document.getElementById("_pmd-travellings"),
+  sidebar: {
+    root: document.getElementById("_pmd-LeftSiderbar"),
+    slot1: document.getElementById("_pmd-slot_1"),
+    slot2: document.getElementById("_pmd-slot_2"),
+    slot3: {
+      root: document.getElementById("_pmd-slot_3"),
+      index_links: {
+        root: document.getElementById("_pmd-index_links_parent"),
+        sub: document.getElementById("_pmd-index_links"),
       },
-      slot4: {
-        _: {
-          timeCountInterval: -1,
+      user_setting: {
+        root: document.getElementById("_pmd-user_setting_parent"),
+        sub: document.getElementById("_pmd-user_settings"),
+        color: {
+          root: document.getElementById("_pmd-color_theme_prefer"),
+          auto: document.getElementById("_pmd-color_theme_prefer_a"),
+          light: document.getElementById("_pmd-color_theme_prefer_l"),
+          dark: document.getElementById("_pmd-color_theme_prefer_d"),
         },
-        root: document.getElementById("_pmd-slot_4"),
-        saying: document.getElementById("_pmd-slot_4_saying"),
-        time: document.getElementById("_pmd-slot_4_time"),
-        license: document.getElementById("_pmd-slot_4_license"),
       },
+      travellings: document.getElementById("_pmd-travellings"),
     },
-    origin: {
+    slot4: {
       _: {
-        toTop_intervalID: -1,
-        toTop_interval_speed: 0,
+        timeCountInterval: -1,
       },
-      root: document.getElementById("_pmd-originalContent"),
-      header: {
-        root: document.getElementsByClassName("page-header")[0],
-        main: document.getElementsByClassName("project-name")[0],
-        sub: document.getElementsByClassName("project-tagline")[0],
-      },
-      main: {
-        root: document.getElementById("content"),
-        quote: document.querySelectorAll("blockquote"),
-        img: document.querySelectorAll("img"),
-        code: document.querySelectorAll("pre"),
-        link: document.querySelectorAll("a"),
-        header: document.querySelectorAll("h1,h2,h3,h4,h5,h6"),
-        list: document.querySelectorAll("ul,ol"),
-        table: document.querySelectorAll("table"),
-      },
-      jekyll_conf: document.getElementById("jekyll-meta"),
+      root: document.getElementById("_pmd-slot_4"),
+      saying: document.getElementById("_pmd-slot_4_saying"),
+      time: document.getElementById("_pmd-slot_4_time"),
+      license: document.getElementById("_pmd-slot_4_license"),
     },
+  },
+  content: {
+    _: {
+      toTop_intervalID: -1,
+      toTop_interval_speed: 0,
+    },
+    root: document.getElementById("_pmd-mainContent"),
+    root: document.getElementById("_pmd-originalContent"),
+    header: {
+      root: document.getElementsByClassName("page-header")[0],
+      main: document.getElementsByClassName("project-name")[0],
+      sub: document.getElementsByClassName("project-tagline")[0],
+    },
+    main: {
+      root: document.getElementById("content"),
+      quote: document.querySelectorAll("blockquote"),
+      img: document.querySelectorAll("img"),
+      code: document.querySelectorAll("pre"),
+      link: document.querySelectorAll("a"),
+      header: document.querySelectorAll("h1,h2,h3,h4,h5,h6"),
+      list: document.querySelectorAll("ul,ol"),
+      table: document.querySelectorAll("table"),
+    },
+    jekyll_conf: document.getElementById("jekyll-meta"),
   },
   pageConfig: document.getElementById("mdRender_config"),
   index_overwrite: document.getElementById("index_overwrite"),
@@ -118,35 +116,35 @@ function ChangeColorTheme(target, animationCenter) {
 if (!!pmdStorage.Cookies.get("pmd-prefer_color_theme")) {
   /*如果检测到Cookies中相关设置则启用用户偏好配色*/
   if (pmdStorage.Cookies.get("pmd-prefer_color_theme") == "dark") {
-    pmdElements.content.lsidebar.slot3.user_setting.color.root.value = "dark";
+    pmdElements.sidebar.slot3.user_setting.color.root.value = "dark";
   };
   if (pmdStorage.Cookies.get("pmd-prefer_color_theme") == "light") {
-    pmdElements.content.lsidebar.slot3.user_setting.color.root.value = "light";
+    pmdElements.sidebar.slot3.user_setting.color.root.value = "light";
   };
 };
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-  if (pmdElements.content.lsidebar.slot3.user_setting.color.root.value != "auto") { return; };
+  if (pmdElements.sidebar.slot3.user_setting.color.root.value != "auto") { return; };
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     ChangeColorTheme("dark");
   } else {
     ChangeColorTheme("light");
   };
 });
-pmdElements.content.lsidebar.slot3.user_setting.color.root.addEventListener("change", () => {
-  if (pmdElements.content.lsidebar.slot3.user_setting.color.root.value == "auto") {
+pmdElements.sidebar.slot3.user_setting.color.root.addEventListener("change", () => {
+  if (pmdElements.sidebar.slot3.user_setting.color.root.value == "auto") {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      ChangeColorTheme("dark", pmdElements.content.lsidebar.slot3.user_setting.color.auto);
+      ChangeColorTheme("dark", pmdElements.sidebar.slot3.user_setting.color.auto);
     } else {
-      ChangeColorTheme("light", pmdElements.content.lsidebar.slot3.user_setting.color.auto);
+      ChangeColorTheme("light", pmdElements.sidebar.slot3.user_setting.color.auto);
     };
     pmdStorage.Cookies.set("pmd-prefer_color_theme", "auto", 2147483647, "/");
   };
-  if (pmdElements.content.lsidebar.slot3.user_setting.color.root.value == "dark") {
-    ChangeColorTheme("dark", pmdElements.content.lsidebar.slot3.user_setting.color.dark);
+  if (pmdElements.sidebar.slot3.user_setting.color.root.value == "dark") {
+    ChangeColorTheme("dark", pmdElements.sidebar.slot3.user_setting.color.dark);
     pmdStorage.Cookies.set("pmd-prefer_color_theme", "dark", 2147483647, "/");
   };
-  if (pmdElements.content.lsidebar.slot3.user_setting.color.root.value == "light") {
-    ChangeColorTheme("light", pmdElements.content.lsidebar.slot3.user_setting.color.light);
+  if (pmdElements.sidebar.slot3.user_setting.color.root.value == "light") {
+    ChangeColorTheme("light", pmdElements.sidebar.slot3.user_setting.color.light);
     pmdStorage.Cookies.set("pmd-prefer_color_theme", "light", 2147483647, "/");
   };
 });
@@ -181,8 +179,8 @@ document.querySelectorAll("img").forEach((imgElement) => {
 });
 
 //移动View on Github按钮
-if (conf.info.view_on_github && !!pmdElements.content.origin.header.view_on_github) {
-  pmdElements.appbar._.GithubLink = pmdElements.content.origin.jekyll_conf.dataset.githubRepo;
+if (conf.info.view_on_github && !!pmdElements.content.header.view_on_github) {
+  pmdElements.appbar._.GithubLink = pmdElements.content.jekyll_conf.dataset.githubRepo;
   pmdElements.appbar.Github.addEventListener("click", () => { openURL(pmdElements.appbar._.GithubLink, false); });
   if (pmdElements.appbar._.GithubLink == "") { pmdElements.appbar.Github.remove(); } else { pmdElements.appbar.Github.style = ""; };
 };
@@ -191,13 +189,13 @@ if (conf.info.view_on_github && !!pmdElements.content.origin.header.view_on_gith
 pmdElements.appbar.toTopBtn.addEventListener("animationend", (event) => { if (pmdElements.appbar.toTopBtn.className == "fadeOut") { pmdElements.appbar.toTopBtn.style = "display: none;"; }; });
 function updataAppbar() {
   /*修改UITitsle的透明度*/
-  if (pmdElements.content.origin.root.scrollTop / pmdElements.content.origin.header.root.scrollHeight <= 1) {
-    pmdElements.appbar.title.style.opacity = pmdElements.content.origin.root.scrollTop / pmdElements.content.origin.header.root.scrollHeight;
+  if (pmdElements.content.root.scrollTop / pmdElements.content.header.root.scrollHeight <= 1) {
+    pmdElements.appbar.title.style.opacity = pmdElements.content.root.scrollTop / pmdElements.content.header.root.scrollHeight;
   } else {
     pmdElements.appbar.title.style.opacity = 1;
   };
   /*滚过一屏后显示回顶按钮的动画*/
-  if (pmdElements.content.origin.root.scrollTop >= window.innerHeight) {
+  if (pmdElements.content.root.scrollTop >= window.innerHeight) {
     if (pmdElements.appbar.toTopBtn.className != "fadeIn") {
       pmdElements.appbar.toTopBtn.setAttribute("onclick", "scrollToTop();");
       pmdElements.appbar.toTopBtn.setAttribute("class", "fadeIn");
@@ -212,27 +210,27 @@ function updataAppbar() {
     };
   };
 };
-pmdElements.content.origin.root.addEventListener("scroll", updataAppbar);
+pmdElements.content.root.addEventListener("scroll", updataAppbar);
 
 //回顶
 function scrollToTop() {
   /*回顶自动清除章节锚点*/
   window.location.hash = "";
   /*计算回顶速度并创建回顶循环*/
-  pmdElements.content.origin._.toTop_interval_speed = -(pmdElements.content.origin.root.scrollTop / (80));
-  if (pmdElements.content.origin._.toTop_intervalID != -1) { pmdElements.content.origin._.toTop_interval_speed = pmdElements.content.origin._.toTop_interval_speed * 1.5; return; };
-  pmdElements.content.origin._.toTop_intervalID = setInterval(() => {
-    pmdElements.content.origin.root.scrollBy(0, pmdElements.content.origin._.toTop_interval_speed);
-    if (pmdElements.content.origin.root.scrollTop <= 0) {
-      clearInterval(pmdElements.content.origin._.toTop_intervalID);
-      pmdElements.content.origin._.toTop_intervalID = -1;
+  pmdElements.content._.toTop_interval_speed = -(pmdElements.content.root.scrollTop / (80));
+  if (pmdElements.content._.toTop_intervalID != -1) { pmdElements.content._.toTop_interval_speed = pmdElements.content._.toTop_interval_speed * 1.5; return; };
+  pmdElements.content._.toTop_intervalID = setInterval(() => {
+    pmdElements.content.root.scrollBy(0, pmdElements.content._.toTop_interval_speed);
+    if (pmdElements.content.root.scrollTop <= 0) {
+      clearInterval(pmdElements.content._.toTop_intervalID);
+      pmdElements.content._.toTop_intervalID = -1;
     };
   }, 1);
 };
 pmdElements.appbar.toTopBtn.addEventListener("click", scrollToTop);
 
 //设置页面标题
-pmdElements.appbar.title.innerHTML = pmdElements.content.origin.header.main.innerHTML;
+pmdElements.appbar.title.innerHTML = pmdElements.content.header.main.innerHTML;
 
 //检查页面设置元素并应用
 if (!!pmdElements.pageConfig) {
@@ -282,10 +280,10 @@ document.querySelectorAll('#_pmd-originalContent h1, #_pmd-originalContent h2, #
 });
 hn_index_cache = "<ul>" + hn_index_cache + "</ul>";
 if (conf.index.sidebar) {
-  pmdElements.content.lsidebar.slot3.index_links.sub.innerHTML = hn_index_cache;
-  pmdElements.content.lsidebar.slot3.index_links.root.style = "";
+  pmdElements.sidebar.slot3.index_links.sub.innerHTML = hn_index_cache;
+  pmdElements.sidebar.slot3.index_links.root.style = "";
 } else {
-  pmdElements.content.lsidebar.slot3.index_links.remove();
+  pmdElements.sidebar.slot3.index_links.remove();
 };
 if /*向具有指定id的元素中写入目录信息*/ (conf.index.sidebar && !!(pmdElements.index_overwrite)) {
   pmdElements.index_overwrite.innerHTML = hn_index_cache;
@@ -415,11 +413,11 @@ function RefreshCountup(countupY, countupM, countupD) {
   let countupM_ = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
   let countupS = Math.floor((timeDifference % (1000 * 60)) / 1000);
   /*更新显示*/
-  pmdElements.content.lsidebar.slot4.time.innerHTML = `<center><small>本站已建立${countupD_}天${countupH}小时${countupM_}分钟${countupS}秒</small></center>`;
+  pmdElements.sidebar.slot4.time.innerHTML = `<center><small>本站已建立${countupD_}天${countupH}小时${countupM_}分钟${countupS}秒</small></center>`;
 };
 if (conf.info.time[0] && !conf.sidebar.replacement) {
-  pmdElements.content.lsidebar.slot4._.timeCountInterval = setInterval(() => { RefreshCountup(conf.info.time[1], conf.info.time[2], conf.info.time[3]) }, 1000);
-} else { pmdElements.content.lsidebar.slot4.time.remove(); };
+  pmdElements.sidebar.slot4._.timeCountInterval = setInterval(() => { RefreshCountup(conf.info.time[1], conf.info.time[2], conf.info.time[3]) }, 1000);
+} else { pmdElements.sidebar.slot4.time.remove(); };
 
 //向复制内容末尾添加版权声明
 if (!!conf.copy.endnote) {
@@ -427,7 +425,7 @@ if (!!conf.copy.endnote) {
     /*占位符替换*/
     .replace(/%LINK%/, window.location)
     .replace(/%TITLE%/, pmdElements.appbar.title.innerHTML)
-    .replace(/%ETITLE%/, pmdElements.content.origin.header.main.innerHTML);
+    .replace(/%ETITLE%/, pmdElements.content.header.main.innerHTML);
   document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('copy', async (event) => {
       try {
