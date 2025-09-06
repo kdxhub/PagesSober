@@ -1,5 +1,5 @@
 what-is-this: Jekyll的设置项，影响一些行为
-# 页面框架设置见pmd-conf.js
+# 页面框架设置见/pmd-conf.js
 
 # 网站的标题
 title: PagesSober
@@ -8,11 +8,14 @@ description: >-
   基于SoberJS的Github Pages主题
 # 你的favicon（出现在浏览器tab上）图片URL，建议使用较小(64px × 64px)的图片
 favicon: /favicon.ico
+# 语言
+lang: zh-cn
+# google analytics
+google_analytics:
 
 # 包含的文件
 include:
   - file_example
-
 # 不包含的文件
 exclude:
   - Gemfile
@@ -30,3 +33,4 @@ theme: minima
 plugins:
   - jekyll-feed
 livereload: true
+debug: true

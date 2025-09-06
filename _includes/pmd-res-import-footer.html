@@ -1,0 +1,6 @@
+{% if site.debug == "true" %}
+<script src="{{ '/pmd/pmd.js?v=' | append: site.github.build_revision | relative_url }}"></script>
+{% endif %}
+{% if site.debug != "true" %}
+<script src="{{ '/pmd/pmd.min.js?v=' | append: site.github.build_revision | relative_url }}"></script>
+{% endif %}
