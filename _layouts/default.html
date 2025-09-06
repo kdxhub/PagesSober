@@ -39,13 +39,13 @@
     <s-drawer id="_pmd-mainContent">
       <div id="_pmd-LeftSiderbar" slot="start"><s-scroll-view class="unselectable"
           style="height: 100%; padding-bottom: 1rem;">
-          <s-card id="_pmd-slot_1" type="" class="sidebar_head">
-            <div slot="image"><img title="${conf.sidebar.solt_1.title}" alt="${conf.sidebar.solt_1.alt}"
-                class="ui-img sidebar_img" pmduiimg="true" src="${conf.sidebar.solt_1.src}"></div>
-            <div slot="headline"><span>${conf.sidebar.solt_1.alt}</span></div>
+          <s-card id="_pmd-slot_1" class="sidebar_head">
+            <div slot="image"><img id="_pmd-solt_1-img"
+                class="ui-img sidebar_img" pmduiimg="true" src="${}"></div>
+            <div slot="headline" id="_pmd-solt_1-headline"></div>
           </s-card>
-          <s-card id="_pmd-slot_2" type="" class="sidebar_head">${conf.sidebar.solt_2.innerHTML}</s-card>
-          <s-card id="_pmd-slot_3" type="" class="sidebar_head">
+          <s-card id="_pmd-slot_2" class="sidebar_head"></s-card>
+          <s-card id="_pmd-slot_3" class="sidebar_head">
             <s-fold folded="true" id="_pmd-user_setting_parent">
               <s-chip slot="trigger" clickable="true" class="sidebar_btn">
                 <s-icon slot="start"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -90,16 +90,10 @@
               </div>
             </s-fold>
           </s-card>
-          <s-card id="_pmd-slot_4" type="" class="sidebar_head">
-            <div id="_pmd-slot_4_saying">
-              <center>${conf.info.saying}</center>
-            </div>
-            <div id="_pmd-slot_4_time">
-              <center><small>Since 2022-07-19</small></center>
-            </div>
-            <div id="_pmd-slot_4_license">
-              <center><small>以<a href="${conf.info.licen.link}">${conf.info.licen.what}</a>协议提供内容</small></center>
-            </div>
+          <s-card id="_pmd-slot_4" class="sidebar_head">
+            <div id="_pmd-slot_4_saying"></div>
+            <div id="_pmd-slot_4_time"><center><small>Since 2022-07-19</small></center></div>
+            <div id="_pmd-slot_4_license"></div>
           </s-card>
       </div></s-scroll-view>
       <s-scroll-view id="_pmd-originalContent" class="selectable">
@@ -110,11 +104,7 @@
         <main id="content" class="main-content" role="main">
           {{ content }}
         </main>
-        <footer class="site-footer unselectable">
-          <s-divider></s-divider>
-          <p><small>${conf.hyper_markdown.footer}<br>Powered by <a data-arrow-bypass="true" href="https://github.com/kdxhub/PagesSober" target="_blank">PagesSober</a>.</small>
-          </p>
-        </footer>
+        <footer id="_pmd-footer" class="site-footer unselectable"></footer>
       </s-scroll-view>
     </s-drawer>
   </s-page>

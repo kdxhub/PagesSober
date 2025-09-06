@@ -19,7 +19,11 @@ const pmdElements = {
   },
   sidebar: {
     root: document.getElementById("_pmd-LeftSiderbar"),
-    slot1: document.getElementById("_pmd-slot_1"),
+    slot1: {
+      root: document.getElementById("_pmd-slot_1"),
+      headline: document.getElementById("_pmd-solt_1-headline"),
+      img: document.getElementById("_pmd-solt_1-img"),
+    },
     slot2: document.getElementById("_pmd-slot_2"),
     slot3: {
       root: document.getElementById("_pmd-slot_3"),
@@ -71,11 +75,22 @@ const pmdElements = {
       list: document.querySelectorAll("ul,ol"),
       table: document.querySelectorAll("table"),
     },
+    footer: document.getElementById("_pmd-footer"),
     jekyll_conf: document.getElementById("jekyll-meta"),
   },
   pageConfig: document.getElementById("mdRender_config"),
   index_overwrite: document.getElementById("index_overwrite"),
 };
+
+//覆写pmd conf
+pmdElements.sidebar.slot1.img.title = conf.sidebar.solt_1.title;
+pmdElements.sidebar.slot1.img.alt = conf.sidebar.solt_1.alt;
+pmdElements.sidebar.slot1.img.src = conf.sidebar.solt_1.src;
+pmdElements.sidebar.slot1.headline.innerHTML = `<span>${conf.sidebar.solt_1.alt}</span>`;
+pmdElements.sidebar.slot2.innerHTML = conf.sidebar.solt_2.innerHTML;
+pmdElements.sidebar.slot4.saying.innerHTML = `<center>${conf.info.saying}</center>`;
+pmdElements.sidebar.slot4.license.innerHTML = `<center><small>以<a href="${conf.info.licen.link}">${conf.info.licen.what}</a>协议提供内容</small></center>`;
+pmdElements.content.footer.innerHTML = `<s-divider></s-divider><p>${conf.hyper_markdown.footer}<br><small>Powered by <a data-arrow-bypass="true" href="https://github.com/kdxhub/PagesSober" target="_blank">PagesSober</a>.</small></p>`;
 
 //通用函数
 function getQueryString(name) { let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); let r = window.location.search.substr(1).match(reg); if (r != null) { return unescape(r[2]); }; return null; };
