@@ -46,16 +46,16 @@ const conf = {
       src: "https://s21.ax1x.com/2024/05/24/pkQwAte.jpg",
       /*背景图片遮罩透明度，分别为亮色和暗色遮罩，范围0~1*/
       alpha: [0.8, 0.82],
-      /*背景图片模糊度，为-1禁用；注意所有模糊效果都能被用户禁用*/
+      /*背景图片模糊度，为-1禁用*/
       blur: -1,
     },
   },
   sidebar: {
     solt_1: {
       /*左侧边栏·第1格·背景图片*/
-      src: `https://www.todaybing.com/api/today/cn?size=mhd`,
+      src: `https://s21.ax1x.com/2024/05/24/pkQwAte.jpg`,
       /*左侧边栏·第1格·背景图片描述*/
-      alt: `Pages Markdown reRender`,
+      alt: `PagesSober`,
       /*左侧边栏·第1格·描述文案背景，依次亮色透明度、暗色透明度、亮色模糊度、暗色模糊度*/
       background: [0.8, 0.82, -1, -1],
       /*左侧边栏·第1格·图片标题（悬浮提示内容）*/
