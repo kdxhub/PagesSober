@@ -19,6 +19,8 @@ const conf = {
     view_on_github: true,
     /*Baidu站长统计JS地址（hm那一行的URL），为空禁用*/
     baidu: "",
+    /*Google站长统计JS地址，为空禁用*/
+    google: "",
   },
   code: {
   /*在代码块下方添加复制代码按钮*/

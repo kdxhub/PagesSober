@@ -1,7 +1,7 @@
 // 将Github Pages自动生成的Markdown渲染页面进行自动重绘
 // Powered by SoberJS
 
-const PluginVer = ["3.0.0", 21];
+const PluginVer = ["3.0.0beta", 21];
 const pmdStorage = { Cookies: { set: function (e, t, o, n) { const s = `${encodeURIComponent(e)}=${encodeURIComponent(t)}`; if (o) { const e = new Date; e.setTime(e.getTime() + 1e3 * o), document.cookie = `${s}; expires=${e.toUTCString()}; path=${n}` } else document.cookie = `${s}; path=${n}` }, get: function (e) { const t = document.cookie.split("; "); for (const o of t) { const [t, n] = o.split("=", 2); if (decodeURIComponent(t) === e) return decodeURIComponent(n) } return null }, remove: function (e) { this.set(e, "", { expires: -1 }) }, getAll: function () { const e = document.cookie.split("; "), t = {}; for (const o of e) { const [e, n] = o.split("=", 2); t[decodeURIComponent(e)] = decodeURIComponent(n) } return t }, reset_dangerous: function () { const e = this.getAll(); for (const t in e) this.remove(t) } }, Local: { set: function (e, t) { localStorage.setItem(e, JSON.stringify(t)) }, get: function (e) { const t = localStorage.getItem(e); try { return JSON.parse(t) } catch (e) { return t } }, remove: function (e) { localStorage.removeItem(e) }, getAll: function () { const e = {}; for (let t = 0; t < localStorage.length; t++) { const o = localStorage.key(t); e[o] = this.get(o) } return e }, reset_dangerous: function () { localStorage.clear() } }, Session: { set: function (e, t) { sessionStorage.setItem(e, JSON.stringify(t)) }, get: function (e) { const t = sessionStorage.getItem(e); try { return JSON.parse(t) } catch (e) { return t } }, remove: function (e) { sessionStorage.removeItem(e) }, getAll: function () { const e = {}; for (let t = 0; t < sessionStorage.length; t++) { const o = sessionStorage.key(t); e[o] = this.get(o) } return e }, reset_dangerous: function () { sessionStorage.clear() } } };
 document.body.innerHTML += `<style id=_pmd-style-dynamic>#_pmd-pageRoot{background:rgba(250,253,252,${conf.img.background.alpha[0]});backdrop-filter:blur(${conf.img.background.blur}px)}#_pmd-pageRoot[dark]{background:rgba(5,2,3,${conf.img.background.alpha[1]});backdrop-filter:blur(${conf.img.background.blur}px)}</style><style id=_pmd-style-custom>${conf.info.style}</style>`;
 //pmd元素常量组
@@ -451,8 +451,8 @@ if (!!conf.copy.endnote) {
   });
 };
 
-//百度统计
-if (!!conf.info.baidu) {
+//站长分析工具
+if (/* Baidu */!!conf.info.baidu) {
   var _hmt = _hmt || [];
   (function () {
     var hm = document.createElement("script");
@@ -460,6 +460,21 @@ if (!!conf.info.baidu) {
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
   })();
+};
+if (/* Google */!!conf.info.google) {
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments);
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+  ga('create', 'conf.info.google', 'auto');
+  ga('send', 'pageview');
 };
 
 //页面初始化
