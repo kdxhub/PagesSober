@@ -125,3 +125,81 @@ end
 ### 转义
 如果想要打出不被处理的文本需要使用`\`转义有些字符：<br>
 \*\*这段文本没有被加粗\*\*
+
+## 页面配置
+
+> [i] 此章节还在更新
+
+## 配置文件
+
+### info
+此配置节控制Pages的基本信息
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `lang` | String | HTML节点的`lang`参数覆写，老版本遗留，现仍工作但已弃用 |
+| `time` | Array<br>`[Boolean, Int, Int, Int]` | 在边栏中启用建站计时<br>数组参数依次为：<br>`{Boolean}`是否启用本功能<br>`{Int}`年<br>`{Int}`月<br>`{Int}`日 |
+| `saying` | String | 在边栏中显示的一言 |
+| `licen.what` | String | 文章授权协议名，拼接为：<br>`以%协议%协议提供内容` |
+| `licen.link` | String | 上述协议的URL地址 |
+| `style` | String | 要应用的自定义样式表(CSS)<br>**在仅框架页面中也会应用** |
+| `view_on_github` | Boolean | 是否允许在站点部署在非根仓库时将其Github链接展示在标题栏上 |
+| `baidu` | String | [百度统计](https://tongji.baidu.com/main/homepage)的JS脚本地址；为空则不启用<br>在百度给出的快速代码中的`hm`一行，示例：<br>`https://tongji.baidu.com/hm?1234567890` |
+| `google` | String | [Google Analytics](https://developers.google.cn/analytics?hl=zh-cn)的JS脚本地址；为空则不启用 |
+
+### code
+此配置节控制代码块的行为
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `enabled` | Boolean | 是否在代码块最后一方添加一个复制按钮 |
+| `tip` | String | 该按钮的默认提示文本 |
+| `done` | String | 点击按钮后的示意文本 |
+
+### img
+此配置节控制图片相关行为
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `view` | Boolean | 点击图片后是否允许查看大图与详情信息 |
+| `imgse_com.enabled` | Boolean | 启用对imgse.com的兼容<br>比如点击图片后自动加载无`.md.`后缀的高清图片 |
+| `imgse_com.detail` | Boolean | 如果图片来自imgse.com，查看源图时自动跳转到imgse.com的详情页面而不是图片URL |
+| `error` | String | 当图片加载失败时的替代图片URL |
+| `background.src` | String | 页面背景图片的URL |
+| `background.alpha` | Array<br>`[Number, Number]` | 分别控制在亮色和暗色下背景图片的不透明度<br>`1`为完全不透明，`0`为完全透明 |
+| `background.blur` | Int | 背景图片的高斯模糊度<br>越高越模糊也越卡，这是浏览器实时渲染的<br>背景不透明度越大模糊效果越佳 |
+
+### sidebar
+此配置节控制侧边栏行为
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `` |  |  |
+
+### copy
+此配置节控制用户复制文本行为
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `` |  |  |
+
+### hyper_markdown
+此配置节控制PagesSober专供Markdown语法的行为
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `` |  |  |
+
+### link
+此配置节控制链接的行为
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `` |  |  |
+
+### index
+此配置节控制侧边栏中「目录」的行为
+
+| Conf | Type | Note |
+|-:|:-|:-|
+| `` |  |  |
