@@ -94,7 +94,7 @@ function openURL(URI, IsInPresentWindow) {
  */
 function msg(Message, ConfirmBtnText, type, duration, onclick, align, icon) {
   let infoJSON = {
-    root: pmdElements.pageRoot,
+    root: pageElements.pageRoot,
     text: Message,
     type: type,
     action: {},
@@ -169,8 +169,8 @@ styleEle.innerHTML += `
 `;
 if (!!conf.info.style) {
   styleEle.innerHTML += conf.info.style;
-  document.head.appendChild(styleEle);
-}
+};
+document.head.appendChild(styleEle);
 /* 侧栏内容覆写 */
 pageElements.sidebar.slot1.innerHTML = `<div slot="image"><img title="${conf.sidebar.solt_1.title}" alt="${conf.sidebar.solt_1.alt}" class="ui-img sidebar_img" pmduiimg="true" src="${conf.sidebar.solt_1.src}"></div><div slot="headline"><span>${conf.sidebar.solt_1.alt}</span></div>`;
 pageElements.sidebar.slot2.innerHTML = conf.sidebar.solt_2.innerHTML;
