@@ -15,14 +15,10 @@ const conf = {
     },
     /*自定义CSS样式*/
     style: ``,
-    CloudflareAPI/* TODO，启用无效 */: {
-      /*在脚注中显示Cloudflare节点信息，需要你的站点经过其代理*/
-      enabled: false,
-      /*Cloudflare节点信息映射表，一般不需要改动*/
-      nodes: false,
-    },
     /*允许将正文内的View on Github按钮转移*/
     view_on_github: true,
+    /*Baidu站长统计JS地址（hm那一行的URL），为空禁用*/
+    baidu: "",
   },
   code: {
   /*在代码块下方添加复制代码按钮*/

@@ -1,4 +1,4 @@
-what-is-this: Jekyll的设置项，影响一些行为
+what-is-this: Jekyll的设置项，影响Markdown行为
 # 页面框架设置见/pmd-conf.js
 
 # 网站的标题
@@ -11,7 +11,7 @@ favicon: /favicon.ico
 # 语言
 lang: zh-cn
 # google analytics
-google_analytics:
+google_analytics: 
 
 # 包含的文件
 include:

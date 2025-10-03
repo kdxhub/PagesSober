@@ -451,6 +451,17 @@ if (!!conf.copy.endnote) {
   });
 };
 
+//百度统计
+if (!!conf.info.baidu) {
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = conf.info.baidu;
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+};
+
 //页面初始化
 updataAppbar();
 console.log('%cPages Markdown Re-Render v' + PluginVer[0] + '%c[' + PluginVer[1] + '%c]\nCopyright (C) 2024 kdxiaoyi. All right reserved.', 'color:#90BBB1;', 'color:#90BBB1;', 'color:#90BBB1;');
