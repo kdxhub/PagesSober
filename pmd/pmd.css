@@ -43,7 +43,6 @@ body {
   -o-background-size: cover;
   background-position: center 0;
   background-attachment: fixed;
-  background-image: url(${conf.img.background.src});
 }
 html::-webkit-scrollbar {
   width: 0;
@@ -55,6 +54,7 @@ html::-webkit-scrollbar {
   height: 100vh;
 }
 #_pmd-appbarRoot {
+  margin: 0 0 0 0;
   position: sticky;
   top: 0;
   z-index: 1000;

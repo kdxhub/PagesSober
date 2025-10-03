@@ -3,7 +3,7 @@
 
 const PluginVer = ["3.0.0beta", 21];
 const pmdStorage = { Cookies: { set: function (e, t, o, n) { const s = `${encodeURIComponent(e)}=${encodeURIComponent(t)}`; if (o) { const e = new Date; e.setTime(e.getTime() + 1e3 * o), document.cookie = `${s}; expires=${e.toUTCString()}; path=${n}` } else document.cookie = `${s}; path=${n}` }, get: function (e) { const t = document.cookie.split("; "); for (const o of t) { const [t, n] = o.split("=", 2); if (decodeURIComponent(t) === e) return decodeURIComponent(n) } return null }, remove: function (e) { this.set(e, "", { expires: -1 }) }, getAll: function () { const e = document.cookie.split("; "), t = {}; for (const o of e) { const [e, n] = o.split("=", 2); t[decodeURIComponent(e)] = decodeURIComponent(n) } return t }, reset_dangerous: function () { const e = this.getAll(); for (const t in e) this.remove(t) } }, Local: { set: function (e, t) { localStorage.setItem(e, JSON.stringify(t)) }, get: function (e) { const t = localStorage.getItem(e); try { return JSON.parse(t) } catch (e) { return t } }, remove: function (e) { localStorage.removeItem(e) }, getAll: function () { const e = {}; for (let t = 0; t < localStorage.length; t++) { const o = localStorage.key(t); e[o] = this.get(o) } return e }, reset_dangerous: function () { localStorage.clear() } }, Session: { set: function (e, t) { sessionStorage.setItem(e, JSON.stringify(t)) }, get: function (e) { const t = sessionStorage.getItem(e); try { return JSON.parse(t) } catch (e) { return t } }, remove: function (e) { sessionStorage.removeItem(e) }, getAll: function () { const e = {}; for (let t = 0; t < sessionStorage.length; t++) { const o = sessionStorage.key(t); e[o] = this.get(o) } return e }, reset_dangerous: function () { sessionStorage.clear() } } };
-document.body.innerHTML += `<style id=_pmd-style-dynamic>#_pmd-pageRoot{background:rgba(250,253,252,${conf.img.background.alpha[0]});backdrop-filter:blur(${conf.img.background.blur}px)}#_pmd-pageRoot[dark]{background:rgba(5,2,3,${conf.img.background.alpha[1]});backdrop-filter:blur(${conf.img.background.blur}px)}</style><style id=_pmd-style-custom>${conf.info.style}</style>`;
+document.body.innerHTML += `<style id=_pmd-style-dynamic>body{background-image:url(${conf.img.background.src});}#_pmd-pageRoot{background:rgba(250,253,252,${conf.img.background.alpha[0]});backdrop-filter:blur(${conf.img.background.blur}px)}#_pmd-pageRoot[dark]{background:rgba(5,2,3,${conf.img.background.alpha[1]});backdrop-filter:blur(${conf.img.background.blur}px)}</style><style id=_pmd-style-custom>${conf.info.style}</style>`;
 //pmd元素常量组
 const pmdElements = {
   pageRoot: document.getElementById("_pmd-pageRoot"),
@@ -93,7 +93,18 @@ pmdElements.sidebar.slot4.license.innerHTML = `<center><small>以<a href="${conf
 pmdElements.content.footer.innerHTML = `<s-divider></s-divider><p>${conf.hyper_markdown.footer}<br><small>Powered by <a data-arrow-bypass="true" href="https://github.com/kdxhub/PagesSober" target="_blank">PagesSober</a>.</small></p>`;
 
 //通用函数
+/**
+ * 返回指定的URL参数
+ * @param {string} name 获取的参数名
+ * @returns {string|null} 参数结果，没有返回null
+ */
 function getQueryString(name) { let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); let r = window.location.search.substr(1).match(reg); if (r != null) { return unescape(r[2]); }; return null; };
+/**
+ * 打开一个URI
+ * @param {string} URI 要打开的URI
+ * @param {boolean} [IsInPresentWindow=false] 是否要在当前窗口/标签页打开
+ * @returns {HTMLLinkElement} 生成的链接元素
+ */
 function openURL(URI, IsInPresentWindow) {
   let linkEle = document.createElement("a");
   if (!!IsInPresentWindow) {
@@ -105,15 +116,26 @@ function openURL(URI, IsInPresentWindow) {
   linkEle.click();
   return linkEle;
 };
-function msg(Message, ConfirmBtnText, isWarning, duration, onclick, align, icon) {
+/**
+ * 弹出轻量消息提示框
+ * @param {string} Message 消息文本
+ * @param {string} [ConfirmBtnText=''] 确认按钮文字
+ * @param {string|boolean} [type='none'] 样式(none, info, success, warning, error) || 为兼容老版本，使用布尔值时视作'error'
+ * @param {number} [duration=4000] 自动关闭时长（毫秒）；≤0 则不自动关闭
+ * @param {function} [onclick] 点击确认按钮时的回调函数
+ * @param {string} [align='auto'] 弹窗位置 'auto'|'top'|'bottom'
+ * @param {string} [icon] 传递一个图标
+ * @returns {JSON} 传递参数时构造的JSON
+ */
+function msg(Message, ConfirmBtnText, type, duration, onclick, align, icon) {
   let infoJSON = {
     root: pmdElements.pageRoot,
     text: Message,
-    type: "basic",
+    type: type,
     action: {},
   };
   if (ConfirmBtnText) { infoJSON.action.text = ConfirmBtnText.toString(); };
-  if (isWarning) { infoJSON.type = "error"; };
+  if (type === true) { infoJSON.type = "error"; };
   if (duration) { infoJSON.duration = parseInt(duration.toString()); };
   if (onclick) { infoJSON.action.click = onclick; };
   if (align) { infoJSON.align = ["auto", "top", "bottom"][align.toString().match(/\d+/) % 3]; };
@@ -121,13 +143,31 @@ function msg(Message, ConfirmBtnText, isWarning, duration, onclick, align, icon)
   customElements.get("s-snackbar").builder(infoJSON);
   return infoJSON;
 };
-
-//应用配色方案
-/*TODO: sober1.0.6的bug,在head内没有style元素时无法执行s-page的toggle方法，见于https://github.com/apprat/sober/issues/38 ，所以在新版本发布前需要这一条临时修复*/ document.head.insertBefore(document.createElement('style'), document.head.firstChild);
+/**
+ * 弹出轻量消息提示框
+ * @param {string} target 目标主题 auto, light, dark
+ * @param {HTMLElement|any} [animationCenter=pmdElements.appbar.menuBtn] 动画中心元素
+ * @returns {any}
+ */
 function ChangeColorTheme(target, animationCenter) {
   if /* 若传入无效动画中心元素则指定为侧栏按钮 */ (!(animationCenter instanceof HTMLElement)) { animationCenter = pmdElements.appbar.menuBtn; };
   return pmdElements.pageRoot.toggle(target, animationCenter);
 };
+/**
+ * 选中元素内全部文本
+ * @param {HTMLElement} element 目标元素
+ * @returns {none} 没有返回值
+ */
+function selectAllTextInElement(element) {
+  /*选中一个元素内所有的文本*/
+  let range = document.createRange();
+  range.selectNodeContents(element);
+  let selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+};
+
+//应用配色方案
 if (!!pmdStorage.Cookies.get("pmd-prefer_color_theme")) {
   /*如果检测到Cookies中相关设置则启用用户偏好配色*/
   if (pmdStorage.Cookies.get("pmd-prefer_color_theme") == "dark") {
@@ -320,14 +360,6 @@ if (conf.link.arrow.enabled) {
 };
 
 //code元素新增复制到剪贴板按钮
-function selectAllTextInElement(element) {
-  /*选中一个元素内所有的文本*/
-  let range = document.createRange();
-  range.selectNodeContents(element);
-  let selection = window.getSelection();
-  selection.removeAllRanges();
-  selection.addRange(range);
-};
 function copyBtnDone(copyBtn, text) {
   /*copyBtn点击后动画*/
   copyBtn.setAttribute("type", "filled-tonal");
@@ -350,7 +382,7 @@ if (conf.code.enabled) { /*添加Copy按钮并添加绑定*/
     codeElement.classList.add("processed");/*添加标志位*/
     /*为CopyBtn添加属性*/
     let copyCodeBtn = document.createElement('s-chip');
-    copyCodeBtn.setAttribute("type", "elevated");
+    copyCodeBtn.setAttribute("type", "outlined");
     copyCodeBtn.setAttribute("class", "font-default");
     copyCodeBtn.setAttribute("clickable", "true");
     if /*检查Cilpboard API状态*/ (!navigator.clipboard) { copyCodeBtn.setAttribute("clickable", "false"); };
