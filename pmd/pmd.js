@@ -234,7 +234,7 @@ document.querySelectorAll("img").forEach((imgElement) => {
 });
 
 //Github链接处理
-if (conf.info.view_on_github && !!pmdElements.content.header.view_on_github) {
+if (conf.info.view_on_github) {
   pmdElements.appbar._.GithubLink = pmdElements.content.jekyll_conf.dataset.githubRepo;
   pmdElements.appbar.Github.addEventListener("click", () => { openURL(pmdElements.appbar._.GithubLink, false); });
   if (pmdElements.appbar._.GithubLink == "") { pmdElements.appbar.Github.remove(); } else { pmdElements.appbar.Github.style = ""; };
