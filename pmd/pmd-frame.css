@@ -48,7 +48,6 @@ html::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
-
 #_pmd-pageRoot {
   background: rgba(250, 253, 252, var(--pmd-bg-alpha-l, 0.8));
   backdrop-filter: var(--pmd-bg-blur, blur(0px));
@@ -84,7 +83,7 @@ html::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   width: 94%;
-  padding: 3px 3px 3px 3px;
+  padding: 5px 3px 5px 3px;
   margin: 3% 3% 0% 3%;
 }
 .sidebar_head>div[slot=headline] {
@@ -106,10 +105,12 @@ a:hover {
   text-decoration: underline;
 }
 
-#_pmd-pageRoot[dark] * {
-  color-scheme: dark;
+#_pmd-pageRoot[dark] {
   background: rgba(5, 2, 3, var(--pmd-bg-alpha-d, 0.82));
   backdrop-filter: var(--pmd-bg-blur, blur(0px));
+}
+#_pmd-pageRoot[dark] * {
+  color-scheme: dark;
 }
 
 .selectable {
