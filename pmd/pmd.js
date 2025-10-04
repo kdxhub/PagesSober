@@ -276,7 +276,7 @@ const pmdImageHandle = {
           pmdElements.imgview.title.innerHTML = e.target.alt;
           pmdElements.imgview.statement.alt.style = "display:none;";
         };
-        pmdElements.imgview.tools.scale.value = 1;
+        pmdElements.imgview.tools.scale.value = "1.00";
         pmdElements.imgview.imgSize.style = ``;
         pmdElements.imgview.statement.info.innerHTML = "图片正在加载……";
         pmdElements.imgview.imgEle.src = "";
@@ -313,6 +313,7 @@ if (conf.img.share) {
 pmdElements./* 缩放图片 */imgview.tools.scale.addEventListener("change", (e) => {
   if (e.target.value <= 0) { e.target.value = 1; };
   if (e.target.value >= 10) { e.target.value = 10; };
+  e.target.value = Math.pow(e.target.value,1).toFixed(2);
   pmdElements.imgview.imgSize.style = `--pmd-imgview-scale: ${e.target.value};`;
 });
 pmdElements./* 图片基本信息 */imgview.imgEle.addEventListener("load", async (e) => {
