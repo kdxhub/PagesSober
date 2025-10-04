@@ -257,6 +257,7 @@ const pmdImageHandle = {
     e.target.src = conf.img.error;
   },
   click(e = new Event()) {
+    e.preventDefault();
     if (!pmdImageHandle.callerCheck(e.target)) { return; };
     if (e.target.dataset.pmdError == "true") {
       e.target.dataset.pmdError = "once";
@@ -286,7 +287,14 @@ const pmdImageHandle = {
   },
 };
 document.querySelectorAll("img").forEach((e) => {
-  if (!e.dataset.pmduiimg && !e.dataset.pmdUiImg) { e.addEventListener("click", pmdImageHandle.click) };
+  if (!e.dataset.pmduiimg && !e.dataset.pmdUiImg) {
+    e.addEventListener("click", pmdImageHandle.click);
+    e.addEventListener("contextmenu", pmdImageHandle.click);
+  } else {
+    e.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
+  };
   e.addEventListener("error", pmdImageHandle.error);
 });
 
@@ -294,7 +302,14 @@ document.querySelectorAll("img").forEach((e) => {
 pmdElements./* 关闭按钮 */imgview.tools.close.addEventListener("click", () => {
   pmdElements.imgview.root.showed = "false";
 });
-pmdElements./* 在新标签页中打开 */imgview.tools.open.addEventListener("click", () => { });
+if (conf.img.share) {
+  pmdElements.imgview.tools.open.style = "";
+  pmdElements./* 在新标签页中打开 */imgview.tools.open.addEventListener("click", () => {
+    openURL(pmdElements.imgview.imgEle.src, false);
+  });
+} else {
+  pmdElements.imgview.tools.open.style = "display:none;";
+};
 pmdElements./* 缩放图片 */imgview.tools.scale.addEventListener("change", (e) => {
   if (e.target.value <= 0) { e.target.value = 1; };
   if (e.target.value >= 10) { e.target.value = 10; };

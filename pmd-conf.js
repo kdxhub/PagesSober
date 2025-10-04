@@ -38,8 +38,10 @@ const conf = {
     done: "Copied!",
   },
   img: {
-    /*允许点击图片来查看原图*/
+    /*启用图片查看器*/
     view: true,
+    /*允许在图片查看器中分享图片*/
+    share: true,
     imgse_com: {
       /*启用查看原图对imgse图床的优化*/
       enabled: true,
