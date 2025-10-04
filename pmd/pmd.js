@@ -604,7 +604,7 @@ if (!!conf.copy.endnote) {
     document.addEventListener('copy', async (event) => {
       try {
         await navigator.clipboard.writeText(window.getSelection().toString() + endnote);
-        msg(`已复制文本，请注意遵守授权协议 ${conf.info.licen.what}。`, `好`);
+        msg(`已复制文本，请注意遵守授权协议 ${conf.info.licen.what}。`, `好`, "info");
       } catch (err) {
         msg("复制失败，无法访问剪贴板。", "好", true);
         console.error(err);
