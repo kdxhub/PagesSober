@@ -210,4 +210,7 @@ blockquote.pmd-blockinfo>:nth-child(2) {
 p.pmd-blockinfo {
   margin-bottom: 0.4rem;
 }
-
+s-popup-menu hr, s-popup hr {
+  color: var(--s-color-outline, #70787D);
+  width: 83%;
+}
