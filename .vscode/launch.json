@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Build Jekyll with LiveReload [Linux]",
-      "command": "bundle exec jekyll serve --livereload&wait $!;read -n1 -s -r -p \"\nAny key to terminate.\";exit 0",
+      "command": "bundle exec jekyll serve --port 5501 --livereload&wait $!;read -n1 -s -r -p \"\nAny key to terminate.\";exit 0",
       "type": "node-terminal",
       "request": "launch"
     },

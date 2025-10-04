@@ -75,7 +75,7 @@
       "label": "DEV | Build Jekyll Pages",
       "promptOnClose": true,
       "type": "shell",
-      "command": "bundle exec jekyll serve",
+      "command": "bundle exec jekyll serve --port 5501",
       "group": {
         "kind": "test",
         "isDefault": true
