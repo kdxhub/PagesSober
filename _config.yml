@@ -24,13 +24,10 @@ exclude:
 
 # 以下为高级设置，非特殊请勿修改
 # ADVANCED CONFIG BELOW. NO MODIFY WITHOUT SPECIAL CASE.
-# theme: pages-sober
-# plugins:
-#   - jekyll-sitemap
-#   - jekyll-feed
-#   - jekyll-paginate
-theme: minima
 plugins:
   - jekyll-feed
+#   - jekyll-sitemap
+#   - jekyll-paginate
+theme: minima
 livereload: true
 debug: true

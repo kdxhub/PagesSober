@@ -30,8 +30,11 @@ layout: default
 ### 图片
 使用`![替代描述](链接 "图片标题")`来插入图片：
 
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)<br>
-![sky](https://s21.ax1x.com/2025/08/03/pVNTA41.jpg)
+![这是一只章鱼猫，由Simon Oxley于2007年设计，后Tom Preston - Werner获得授权将其作为Github的吉祥物。](https://github.githubassets.com/images/icons/emoji/octocat.png "Octocat")<br>
+![看：<br>天空！](https://s21.ax1x.com/2025/08/03/pVNTA41.md.jpg "The Sky")
+
+这是一张错误链接的图片↓<br>
+![sky](/a)
 
 ### 代码块
 使用\`\`\`+代码语言可以创建代码块，再次使用\`\`\`可以结束。

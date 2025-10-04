@@ -131,6 +131,27 @@ ul.index li.index::before {
   border-radius: 50%;
   border: .075em solid var(--s-color-primary, black);
 }
+
+div.imgview {
+  display: inline-block;
+  margin: 0 0 0 0;
+  padding: .5em .3em 0 .3em;
+  max-height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+s-scroll-view.imgview {
+  max-height: 100%;
+  max-width: 100%;
+}
+s-scroll-view.imgview div {
+  height: auto;
+  width: calc(100% * var(--pmd-imgview-scale, 1));
+}
+img.imgview {
+  object-fit: contain;
+}
+
 .headerProcessed {
   text-decoration: none;
   cursor: alias;
@@ -147,6 +168,7 @@ ul.index li.index::before {
 .headerProcessed:hover > .headerLinkBtn {
   opacity: 1;
 }
+
 a {
   text-decoration: underline dotted;
 }
@@ -169,6 +191,7 @@ img:not(.ui-img) {
   box-sizing: content-box;
   display: block;
 }
+
 #_pmd-pageRoot[dark] * {
   color-scheme:dark;
 }
