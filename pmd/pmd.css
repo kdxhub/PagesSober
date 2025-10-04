@@ -145,11 +145,19 @@ s-scroll-view.imgview {
   background: repeating-conic-gradient(#fff 0% 25%, #ccc 0% 50%) top left / 20px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   width: 100%;
   height: 100%;
   overflow: auto;
   position: relative;
+}
+s-scroll-view.imgview::before {
+  /* content: ""; */
+  display: block;
+  /* 当 --pmd-imgview-scale=1 时，替身尺寸 = 容器尺寸；
+     当 >1 时，替身尺寸等比放大，从而强制出现滚动条 */
+  width: calc(100% * var(--pmd-imgview-scale, 1));
+  height: calc(100% * var(--pmd-imgview-scale, 1));
 }
 #_pmd-pageRoot[dark] s-scroll-view.imgview {
   background: repeating-conic-gradient(#888 0% 25%, #b0b0b0 0% 50%) top left / 20px 20px;
@@ -166,7 +174,7 @@ img.imgview {
   max-height: 100%;
   object-fit: contain;
   transform: scale(var(--pmd-imgview-scale, 1));
-  transform-origin: center center;
+  transform-origin: left top;
   pointer-events: auto;
 }
 
