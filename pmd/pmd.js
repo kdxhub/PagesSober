@@ -312,7 +312,7 @@ if (conf.img.share) {
 };
 pmdElements./* 缩放图片 */imgview.tools.scale.addEventListener("change", (e) => {
   if (e.target.value <= 0) { e.target.value = 1; };
-  if (e.target.value >= 10) { e.target.value = 10; };
+  if (e.target.value >= 100) { e.target.value = 100; };
   e.target.value = Math.pow(e.target.value,1).toFixed(2);
   pmdElements.imgview.imgSize.style = `--pmd-imgview-scale: ${e.target.value};`;
 });
