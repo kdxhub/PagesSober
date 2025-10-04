@@ -15,6 +15,13 @@ const conf = {
     },
     /*自定义CSS样式*/
     style: ``,
+    /* 单位偏好设置 */
+    prefer: {
+      /*存储单位进制，0为1000，1为1024*/
+      storage: 0,
+      /*温标，0为摄氏度，1为华氏度，2为开尔文*/
+      temperature: 0,
+    },
     /*允许将正文内的View on Github按钮转移*/
     view_on_github: true,
     /*Baidu站长统计JS地址（hm那一行的URL），为空禁用*/
