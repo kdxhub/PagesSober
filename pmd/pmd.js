@@ -270,12 +270,15 @@ const pmdImageHandle = {
         if (!!e.target.title) {
           pmdElements.imgview.title.innerHTML = e.target.title;
           pmdElements.imgview.statement.alt.innerHTML = e.target.alt;
+          pmdElements.imgview.statement.alt.style = "";
         } else {
           pmdElements.imgview.title.innerHTML = e.target.alt;
+          pmdElements.imgview.statement.alt.style = "display:none;";
         };
         pmdElements.imgview.tools.scale.value = 1;
         pmdElements.imgview.imgSize.style = ``;
         pmdElements.imgview.statement.info.innerHTML = "图片正在加载……";
+        pmdElements.imgview.imgEle.src = "";
         pmdElements.imgview.imgEle.src = e.target.src;
         pmdElements.imgview.root.showed = "true";
       };
